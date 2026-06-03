@@ -17,6 +17,7 @@ export default function App() {
   const { data, isError, isLoading } = useQuery({
     queryKey: ["notes", page, search],
     queryFn: () => fetchNotes({ page, perPage: 12, search }),
+    keepPreviousData: true,
   });
 
   const debouncedSearch = useDebouncedCallback((value: string) => {

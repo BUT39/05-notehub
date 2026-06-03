@@ -42,7 +42,7 @@ export async function createNote(data: CreateNoteData): Promise<Note> {
   const response = await axiosInstance.post<Note>("/notes", data);
   return response.data;
 }
-export async function deleteNote(id: number) {
+export async function deleteNote(id: string) {
   const response = await axiosInstance.delete<Note>(`/notes/${id}`);
   return response.data;
 }
