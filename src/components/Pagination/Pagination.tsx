@@ -1,9 +1,10 @@
-import ReactPaginateModule from "react-paginate";
-import type { ComponentType } from "react";
-import type { ReactPaginateProps } from "react-paginate";
 import css from "./Pagination.module.css";
+import type { ReactPaginateProps } from "react-paginate";
+import type { ComponentType } from "react";
+import ReactPaginateModule from "react-paginate";
 
 type ModuleWithDefault<T> = { default: T };
+
 const ReactPaginate = (
   ReactPaginateModule as unknown as ModuleWithDefault<
     ComponentType<ReactPaginateProps>
@@ -13,7 +14,7 @@ const ReactPaginate = (
 interface PaginationProps {
   totalPages: number;
   currentPage: number;
-  onPageChange: (page: number) => void;
+  onPageChange: (nextPage: number) => void;
 }
 
 export default function Pagination({
@@ -21,28 +22,17 @@ export default function Pagination({
   currentPage,
   onPageChange,
 }: PaginationProps) {
-  const handlePageClick = ({ selected }: { selected: number }) => {
-    onPageChange(selected + 1);
-  };
-
   return (
     <ReactPaginate
       pageCount={totalPages}
+      pageRangeDisplayed={5}
+      marginPagesDisplayed={1}
+      onPageChange={({ selected }) => onPageChange(selected + 1)}
       forcePage={currentPage - 1}
-      onPageChange={handlePageClick}
       containerClassName={css.pagination}
-      pageClassName={css.page}
-      pageLinkClassName={css.pageLink}
       activeClassName={css.active}
-      previousClassName={css.page}
-      previousLinkClassName={css.pageLink}
-      nextClassName={css.page}
-      nextLinkClassName={css.pageLink}
-      disabledClassName={css.disabled}
-      breakClassName={css.page}
-      breakLinkClassName={css.pageLink}
-      previousLabel="←"
       nextLabel="→"
+      previousLabel="←"
     />
   );
 }
